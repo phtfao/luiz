@@ -1,0 +1,33 @@
+version: '2.1'
+
+services:
+  mysql:
+    image: mysql:5.7
+    volumes:
+     - /var/lib/mysql
+    environment:
+     - MYSQL_ROOT_PASSWORD=capes
+     - MYSQL_DATABASE=capes
+    healthcheck:
+      test: "exit 0"
+
+  angular:
+    build: .
+    ports:
+     - "4200:80"
+
+  php:
+    build: ./backend
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+     - "8000:80"
+#    volumes:
+#     - ./backend:/var/www/html
+    command: >
+      bash -c "php /var/www/html/artisan migrate --seed &&
+        service apache2 restart &&
+        tail -f /var/log/apache2/access.log"
+    links:
+     - mysql

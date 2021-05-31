@@ -1,0 +1,19 @@
+<mat-card-title class="title">
+  Exclusão de tarefa
+</mat-card-title>
+<mat-card-subtitle class="subtitle">
+  Deseja realmente excluir essa tarefa?
+</mat-card-subtitle>
+
+<div style="display: flex; flex-direction: row; justify-content: flex-start">
+  <div>
+    <button mat-raised-button (click)="cancel()" color="secondary" id="btn_cancelar">
+      Cancelar
+    </button>
+  </div>
+  <div>
+    <button mat-raised-button (click)="excluirTarefa()" color="primary" id="btn_salvar">
+      Excluir
+    </button>
+  </div>
+</div>
