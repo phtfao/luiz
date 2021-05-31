@@ -3,8 +3,6 @@ version: '2.1'
 services:
   mysql:
     image: mysql:5.7
-    volumes:
-     - /var/lib/mysql
     environment:
      - MYSQL_ROOT_PASSWORD=capes
      - MYSQL_DATABASE=capes
@@ -26,7 +24,7 @@ services:
 #    volumes:
 #     - ./backend:/var/www/html
     command: >
-      bash -c "php /var/www/html/artisan migrate --seed &&
+      bash -c "php /var/www/html/artisan migrate:refresh --seed &&
         service apache2 restart &&
         tail -f /var/log/apache2/access.log"
     links:
